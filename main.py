@@ -16,6 +16,12 @@ LINE = "My shadow arrived home before I did and was already waiting by the door.
 
 def validate(line):
     """Fail loudly before writing anything invalid."""
+    if line != line.strip():
+        print("error: line must not have leading or trailing white space", file=sys.stderr)
+        sys.exit(1)
+    if "\n" in line or "\r" in line:
+        print("error: entry must be a single line", file=sys.stderr)
+        sys.exit(1)
     if not line.strip():
         print("error: line must not be only white space", file=sys.stderr)
         sys.exit(1)
@@ -32,6 +38,7 @@ def validate(line):
             file=sys.stderr,
         )
         sys.exit(1)
+    print(f"entry: {char_count} characters, 1 sentence", file=sys.stderr)
 
 
 def main():
